@@ -1,28 +1,25 @@
 import React, { useState } from "react";
 import "./App.css";
+import Form from './components/AddMember';
+import Member from './components/Member';
 
 const App = props => {
-  const [teamList, setTeam] = useState(props.data);
-  //stretch
-  const submit = data => setTeam([...teamList, data]);
-  const update = individual =>
-    setTeam([
-      ...teamList.map(member =>
-        individual.id === member.id ? individual : member
-      )
-    ]);
+  const [teamList, setTeam] = useState(props.members);
+  const submit = member => setTeam([...teamList, member]);
 
-  //end stretch
+
+
   return (
     <div className="container">
       <header className="App-header">
         <h1>Our Team</h1>
       </header>
-      <div className="teamlist">
-        {teamList.map((data, index) => (
-          <Member key={index} update={update} member={data} />
+      <div className="list">
+        {teamList.map((member, index) => (
+          <Member key={index} member={member} />
         ))}
       </div>
+      <Form submit={submit} />
     </div>
   );
 };
